@@ -1,0 +1,9 @@
+Package: com.nucleartweaks.screen-nuke
+Name: ScreenNuke
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Depends: mobilesubstrate, firmware (>= 15.0)
+Maintainer: Spec
+Author: Spec
+Description: Shrink the whole UI — continuous More-Space mode: slide everything smaller and fit far more on screen, iOS-8-style.
+Section: Tweaks
