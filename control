@@ -3,7 +3,13 @@ Name: ScreenNuke
 Version: 1.0.0
 Architecture: iphoneos-arm64
 Depends: mobilesubstrate, firmware (>= 15.0)
+Recommends: preferenceloader
 Maintainer: Spec
 Author: Spec
-Description: Shrink the whole UI — continuous More-Space mode: slide everything smaller and fit far more on screen, iOS-8-style.
+Description: Shrink the whole UI so more content fits — continuous
+ More-Space mode. A slider scales everything (text, icons, rows, panels)
+ from 100% down to 55%, like rendering at a higher resolution and letting
+ the display downscale: zero blur, pixel-exact, iOS-8-era "more room" feel.
+ Optional extra-small system text on top. Settings slider; respring to
+ re-apply everywhere.
 Section: Tweaks

@@ -1,4 +1,5 @@
-# ScreenNuke — Shrink the whole UI — continuous More-Space mode: slide everything smaller and fit far more on screen, iOS-8-style.
+# ScreenNuke — continuous More-Space mode: slide the whole UI smaller and fit
+# far more on screen.
 #
 # Device build (CI default):   make package FINALPACKAGE=1        (rootless /var/jb)
 # Simulator build (local dev): tools/sim-test.sh ScreenNuke         (Mac, rootful paths)
@@ -20,8 +21,20 @@ ScreenNuke_LDFLAGS = -Wl,-undefined,dynamic_lookup
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
+# Settings pane (PreferenceLoader bundle). Private Preferences classes are
+# declared minimally in SRRootController.m and resolved at runtime — no SDK
+# stubs needed (dynamic_lookup), so iOS version drift can't break the build.
+BUNDLE_NAME = ScreenNukePrefs
+ScreenNukePrefs_FILES = ScreenNukePrefs/SRRootController.m
+ScreenNukePrefs_INSTALL_PATH = /Library/PreferenceBundles
+ScreenNukePrefs_CFLAGS = -fobjc-arc
+ScreenNukePrefs_LDFLAGS = -Wl,-undefined,dynamic_lookup
+ScreenNukePrefs_INFO_PLIST = ScreenNukePrefs/Info.plist
+
+include $(THEOS_MAKE_PATH)/bundle.mk
+
 # Sign the FINAL staged bytes (Apple Silicon SIGKILLs stale signatures). Staged
-# path is scheme-dependent (rootless=/var/jb/..., sim=rootful) → locate the dylib.
+# path is scheme-dependent (rootless=/var/jb/..., sim=rootful) → locate dylibs.
 ifneq ($(filter simulator%,$(TARGET)),)
 # theos defaults sim signing to `codesign --sign 'Apple Development'` (needs a
 # real cert); the JB sim accepts ad-hoc — keep the build cert-free.
@@ -31,5 +44,5 @@ else
 SIGN_CMD = $(shell command -v $(LDID) >/dev/null 2>&1 && echo "$(LDID) -S" || echo "codesign --force --sign -")
 endif
 after-stage::
-	@f=$$(find "$(THEOS_STAGING_DIR)" -name '$(TWEAK_NAME).dylib' -type f -print -quit); \
-	$(SIGN_CMD) "$$f" && echo "signed: $$f"
+	@find "$(THEOS_STAGING_DIR)" -name 'ScreenNuke*.dylib' -type f | while read -r f; do \
+	  $(SIGN_CMD) "$$f" && echo "signed: $$f"; done

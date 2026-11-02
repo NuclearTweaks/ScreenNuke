@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>cell</key>
+		<string>PSGroupSpecifier</string>
+		<key>footerText</key>
+		<string>Size: 85% — everything 15% smaller, roughly 31% more room.</string>
+	</dict>
+	<dict>
+		<key>cell</key>
+		<string>PSSliderCell</string>
+		<key>label</key>
+		<string>UI size</string>
+		<key>min</key>
+		<real>0</real>
+		<key>max</key>
+		<real>100</real>
+		<key>step</key>
+		<integer>1</integer>
+		<key>Get</key>
+		<string>readDensityPos:</string>
+		<key>Set</key>
+		<string>writeDensity:forSpecifier:</string>
+	</dict>
+	<dict>
+		<key>cell</key>
+		<string>PSGroupSpecifier</string>
+		<key>footerText</key>
+		<string>100% = stock iOS. Drag right: text, icons, rows and panels all shrink together and far more fits on screen — rendered point-exact, not scaled or blurred. Newly opened apps adopt the new size instantly; respring to re-apply everywhere at once.</string>
+	</dict>
+	<dict>
+		<key>cell</key>
+		<string>PSSwitchCell</string>
+		<key>label</key>
+		<string>Extra-small system text</string>
+		<key>default</key>
+		<false/>
+		<key>Get</key>
+		<string>readTiny:</string>
+		<key>Set</key>
+		<string>writeTiny:forSpecifier:</string>
+	</dict>
+	<dict>
+		<key>cell</key>
+		<string>PSGroupSpecifier</string>
+		<key>footerText</key>
+		<string>The switch additionally pins the system content-size category to Extra Small, so dynamic text styles drop to their smallest tier on top of the size slider.</string>
+	</dict>
+</array>
+</plist>
